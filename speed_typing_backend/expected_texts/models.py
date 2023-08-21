@@ -9,6 +9,7 @@ class ExpectedText(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, null=True, blank=False, on_delete=models.SET_NULL)
     locale = models.ForeignKey(Locale, null=False, blank=False, default=Locale.DEFAULT_LOCALE_ID, on_delete=models.SET_DEFAULT)
+    active = models.BooleanField(default=True, null=False, blank=False)
 
     def repr(self) -> dict:
         return {

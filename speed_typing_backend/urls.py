@@ -19,5 +19,6 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path('api/', include('speed_typing_backend.expected_texts.urls'))
+    path('api/', include('speed_typing_backend.expected_texts.urls')),
+    path('api/', include('speed_typing_backend.users.urls')),
 ]

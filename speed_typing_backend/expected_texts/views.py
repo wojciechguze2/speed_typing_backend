@@ -48,6 +48,7 @@ class ExpectedTextsViewSet(ViewSet):
     @staticmethod
     @exception_decorator()
     def update(request: Request, expected_text_id: int) -> Response:
+        return Response(None)  # disabled so it doesn't break history
         expected_text = ExpectedText.objects.get(id=expected_text_id)
 
         text = request.data.get('text').strip()
@@ -77,7 +78,8 @@ class ExpectedTextsViewSet(ViewSet):
         expected_text = ExpectedText.objects.filter(id=expected_text_id)
 
         if expected_text.exists():
-            expected_text.first().delete()
+            expected_text.active = False
+            expected_text.save(update_fields=['active'])
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 

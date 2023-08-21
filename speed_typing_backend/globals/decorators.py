@@ -1,4 +1,5 @@
 import os
+import traceback
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
@@ -14,6 +15,8 @@ def exception_decorator():
             except Exception as e:
                 if os.getenv('SENTRY_DSN'):
                     capture_exception(e)
+                elif os.getenv('LOCAL_DEBUG'):
+                    traceback.print_exc()
 
                 if hasattr(e, 'http_status'):
                     http_status = e.http_status

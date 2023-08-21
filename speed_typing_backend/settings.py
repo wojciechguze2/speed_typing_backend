@@ -9,13 +9,21 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import datetime
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+import django
+from django.utils.encoding import smart_str
+from django.utils.translation import gettext
+
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
+django.utils.translation.ugettext = gettext
+django.utils.encoding.smart_text = smart_str
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -43,6 +51,10 @@ INSTALLED_APPS = [
     'speed_typing_backend.authors',
     'speed_typing_backend.expected_texts',
     'speed_typing_backend.globals',
+    'speed_typing_backend.users',
+    'speed_typing_backend.game_modes',
+    'rest_framework',
+    'rest_framework_jwt'
 ]
 
 MIDDLEWARE = [
@@ -96,6 +108,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+JWT_AUTH = {
+    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    )
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -136,3 +163,5 @@ if SENTRY_DSN:
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
 ]
+
+USERS_LIMIT = os.getenv('USERS_LIMIT', 250)
