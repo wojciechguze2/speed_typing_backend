@@ -1,7 +1,10 @@
+from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
+from speed_typing_backend.authors.models import Author
+from speed_typing_backend.expected_texts.exceptions import ExpectedTextAlreadyExists
 from speed_typing_backend.expected_texts.models import ExpectedText
 from speed_typing_backend.globals.decorators import exception_decorator
 
@@ -21,3 +24,67 @@ class ExpectedTextsViewSet(ViewSet):
         expected_text = ExpectedText.objects.get(id=expected_text_id)
 
         return Response(expected_text.repr())
+
+    @staticmethod
+    @exception_decorator()
+    def create(request: Request) -> Response:
+        text = request.data.get('text').strip()
+
+        if not text:
+            raise ValueError
+
+        author_id = request.data.get('authorIdentity')
+
+        expected_text, created = ExpectedText.objects.get_or_create(
+            text=text,
+            author_id=author_id
+        )
+
+        if not created:
+            raise ExpectedTextAlreadyExists
+
+        return Response(expected_text.repr())
+
+    @staticmethod
+    @exception_decorator()
+    def update(request: Request, expected_text_id: int) -> Response:
+        expected_text = ExpectedText.objects.get(id=expected_text_id)
+
+        text = request.data.get('text').strip()
+
+        if not text:
+            raise ValueError
+
+        author_id = request.data.get('authorIdentity')
+
+        if ExpectedText.objects.filter(text=text, author_id=author_id).exists():
+            raise ExpectedTextAlreadyExists
+
+        author = Author.objects.get(id=author_id)
+
+        expected_text.text = text
+        expected_text.author_id = author.id
+        expected_text.save(update_fields=[
+            'text',
+            'author_id'
+        ])
+
+        return Response(expected_text.repr())
+
+    @staticmethod
+    @exception_decorator()
+    def delete(request: Request, expected_text_id: int) -> Response:
+        expected_text = ExpectedText.objects.filter(id=expected_text_id)
+
+        if expected_text.exists():
+            expected_text.first().delete()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+    @staticmethod
+    @exception_decorator()
+    def random(request: Request) -> Response:
+        if not ExpectedText.objects.all().exists():
+            raise ExpectedText.DoesNotExist
+
+        return Response(ExpectedText.objects.order_by('?').first().repr())

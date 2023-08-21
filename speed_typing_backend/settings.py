@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'speed_typing_backend.authors',
     'speed_typing_backend.expected_texts',
+    'speed_typing_backend.globals',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'speed_typing_backend.urls'
@@ -129,3 +132,7 @@ if SENTRY_DSN:
         traces_sample_rate=1.0,
         send_default_pii=True
     )
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8080',
+]

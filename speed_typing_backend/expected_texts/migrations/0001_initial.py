@@ -10,6 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('authors', '0001_initial'),
+        ('globals', '0002_fixture'),
     ]
 
     operations = [
@@ -19,7 +20,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('text', models.TextField(max_length=16182)),
                 ('create_date', models.DateTimeField(auto_now_add=True)),
-                ('author', models.OneToOneField(null=True, on_delete=django.db.models.deletion.SET_NULL, to='authors.author')),
+                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='authors.author')),
+                ('locale', models.ForeignKey(default=1, on_delete=django.db.models.deletion.SET_DEFAULT, to='globals.locale')),
             ],
         ),
     ]
