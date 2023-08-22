@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'speed_typing_backend.users',
     'speed_typing_backend.game_modes',
     'speed_typing_backend.game',
+    'speed_typing_backend.translations',
     'rest_framework',
     'rest_framework_jwt'
 ]

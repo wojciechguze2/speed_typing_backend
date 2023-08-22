@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/', include('speed_typing_backend.expected_texts.urls')),
     path('api/', include('speed_typing_backend.users.urls')),
     path('api/', include('speed_typing_backend.game.urls')),
+    path('api/', include('speed_typing_backend.translations.urls')),
 ]
