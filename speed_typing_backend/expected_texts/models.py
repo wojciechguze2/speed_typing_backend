@@ -11,6 +11,10 @@ class ExpectedText(models.Model):
     locale = models.ForeignKey(Locale, null=False, blank=False, default=Locale.DEFAULT_LOCALE_ID, on_delete=models.SET_DEFAULT)
     active = models.BooleanField(default=True, null=False, blank=False)
 
+    @property
+    def length(self):
+        return len(self.text)
+
     def repr(self) -> dict:
         return {
             'id': self.id,

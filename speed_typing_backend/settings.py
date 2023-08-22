@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'speed_typing_backend.globals',
     'speed_typing_backend.users',
     'speed_typing_backend.game_modes',
+    'speed_typing_backend.game',
     'rest_framework',
     'rest_framework_jwt'
 ]
@@ -92,6 +93,9 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

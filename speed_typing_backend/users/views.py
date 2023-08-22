@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
+from speed_typing_backend.users.models import CustomUser
 from django.db import IntegrityError
 from django.db.models import Q
 from rest_framework import status
@@ -13,6 +13,7 @@ from rest_framework_jwt.settings import api_settings
 from speed_typing_backend.globals.decorators import exception_decorator
 from speed_typing_backend.users.exceptions import UsersLimitReached, UserAlreadyExists
 from speed_typing_backend.users.functions import request_user
+from speed_typing_backend.users.models import UserStatistics
 
 
 class LoginViewSet(ViewSet):
@@ -39,11 +40,11 @@ class RegisterViewSet(ViewSet):
     @staticmethod
     @exception_decorator()
     def register(request: Request) -> Response:
-        if User.objects.count() > settings.USERS_LIMIT:
+        if CustomUser.objects.count() > settings.USERS_LIMIT:
             raise UsersLimitReached
 
         try:
-            User.objects.create_user(
+            CustomUser.objects.create_user(
                 username=request.data['email'],
                 email=request.data['email'],
                 password=request.data['password']
@@ -75,7 +76,7 @@ class UserViewSet(ViewSet):
     def retrieve(request: Request) -> Response:
         user = request_user(request)
 
-        user_games = user.usergame_set
+        user_games = user.game_set
 
         if user_games.exists():
             last_game_mode = user_games.order_by('-create_date').first().game_mode.code
@@ -98,7 +99,7 @@ class UserViewSet(ViewSet):
             email = request.data.get('email')
 
             if email != user.email:
-                if User.objects.filter(
+                if CustomUser.objects.filter(
                         Q(email=email) | Q(username=email)
                 ).exists():
                     raise UserAlreadyExists
@@ -142,13 +143,10 @@ class UserStatisticsViewSet(ViewSet):
     @staticmethod
     @exception_decorator()
     def retrieve(request: Request) -> Response:
-        user = request_user(request)
-        user_games = user.usergame_set.all()
+        user: CustomUser = request_user(request)
+        user_statistics = UserStatistics(user)
 
-        return Response([
-            user_game.repr()
-            for user_game in user_games
-        ])
+        return Response(user_statistics.repr())
 
 
 class UserGamesHistoryViewSet(ViewSet):
@@ -161,5 +159,5 @@ class UserGamesHistoryViewSet(ViewSet):
 
         return Response([
             user_game.repr()
-            for user_game in user.usergame_set.all()
+            for user_game in user.game_set.all()
         ])
