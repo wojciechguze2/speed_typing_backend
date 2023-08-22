@@ -10,6 +10,7 @@ class ExpectedText(models.Model):
     author = models.ForeignKey(Author, null=True, blank=False, on_delete=models.SET_NULL)
     locale = models.ForeignKey(Locale, null=False, blank=False, default=Locale.DEFAULT_LOCALE_ID, on_delete=models.SET_DEFAULT)
     active = models.BooleanField(default=True, null=False, blank=False)
+    original_text = models.ForeignKey('self', null=True, blank=False, on_delete=models.SET_NULL)
 
     @property
     def length(self):

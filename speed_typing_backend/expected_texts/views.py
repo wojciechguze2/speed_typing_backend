@@ -86,7 +86,14 @@ class ExpectedTextsViewSet(ViewSet):
     @staticmethod
     @exception_decorator()
     def random(request: Request) -> Response:
-        if not ExpectedText.objects.all().exists():
+        locale_iso = request.query_params.get('locale_iso')
+
+        if locale_iso:
+            expected_texts = ExpectedText.objects.filter(locale__iso=locale_iso)
+        else:
+            expected_texts = ExpectedText.objects.all()
+
+        if not expected_texts.exists():
             raise ExpectedText.DoesNotExist
 
-        return Response(ExpectedText.objects.order_by('?').first().repr())
+        return Response(expected_texts.order_by('?').first().repr())

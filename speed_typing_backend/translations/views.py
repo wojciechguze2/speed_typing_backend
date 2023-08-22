@@ -4,7 +4,7 @@ from rest_framework.viewsets import ViewSet
 
 from speed_typing_backend.globals.decorators import exception_decorator
 from speed_typing_backend.globals.exceptions import ObjectAlreadyExists
-from speed_typing_backend.translations.models import Translation
+from speed_typing_backend.translations.models import Translation, TranslationBase
 
 
 class TranslationViewSet(ViewSet):
@@ -39,8 +39,12 @@ class TranslationsViewSet(ViewSet):
     @staticmethod
     @exception_decorator()
     def create(request):
+        translation_base, _ = TranslationBase.objects.get_or_create(
+            code=request.data.get('code')
+        )
+
         translation, created = Translation.objects.get_or_create(
-            code=request.data.get('code'),
+            base=translation_base,
             locale_id=request.data.get('localeId'),
             defaults=dict(
                 translation=request.data.get('translation')
@@ -55,5 +59,7 @@ class TranslationsViewSet(ViewSet):
     @staticmethod
     @exception_decorator()
     def list(request, locale_iso: str):
-        return Response(Translation.objects.filter(locale__iso=locale_iso).values('code', 'translation'))
+        return Response(Translation.objects.filter(
+            locale__iso=locale_iso
+        ).values('base__code', 'translation'))
 

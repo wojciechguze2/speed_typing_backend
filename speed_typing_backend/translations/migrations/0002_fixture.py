@@ -1,10 +1,15 @@
 from django.db import migrations
 
+from speed_typing_backend.settings import OPENAI_SECRET_KEY
+from speed_typing_backend.translations.functions import create_translations
+from speed_typing_backend.translations.models import TranslationBase
 
-def single_translation_data(locale_id: int, translation: str):
+
+def single_translation_data(locale_id: int, translation: str, auto_translate_enabled: bool = True):
     return {
         'locale_id': locale_id,
-        'translation': translation
+        'translation': translation,
+        'auto_translate_enabled': auto_translate_enabled
     }
 
 
@@ -298,6 +303,12 @@ def add_fixture(apps, schema_editor):
             ]
         },
         {
+            'code': 'messages.change_language',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Zmień język'),
+            ]
+        },
+        {
             'code': 'homepage.cards.card_2.body',
             'translations': [
                 single_translation_data(Locale.POLISH_LOCALE_ID, 'Rozbudowana baza tekstów do ćwiczeń pozwala sprawdzić się w różnorodnych kontekstach.'),
@@ -330,7 +341,7 @@ def add_fixture(apps, schema_editor):
         {
             'code': 'homepage.special.expected_output',
             'translations': [
-                single_translation_data(Locale.POLISH_LOCALE_ID, 'Lorem ipsum dolor sit amet, consectetur adipisci tempor incidunt ut labore et dolore magna aliqua veniam, quis nostrud exercitation ullamcorpor s commodo consequat. Duis autem vel eum irrure esse molestiae consequat...'),
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Lorem ipsum dolor sit amet, consectetur adipisci tempor incidunt ut labore et dolore magna aliqua veniam, quis nostrud exercitation ullamcorpor s commodo consequat. Duis autem vel eum irrure esse molestiae consequat...', auto_translate_enabled=False),
             ]
         },
         {
@@ -548,21 +559,32 @@ def add_fixture(apps, schema_editor):
     for translation_data in init_translations_data:
         code = translation_data['code']
 
+        translation_base, _ = TranslationBase.objects.get_or_create(
+            code=code
+        )
+
         for translation_locale_data in translation_data['translations']:
             locale_id = translation_locale_data['locale_id']
             translation = translation_locale_data['translation']
 
             Translation.objects.get_or_create(
-                code=code,
+                base=translation_base,
                 locale_id=locale_id,
                 defaults=dict(
                     translation=translation
                 )
             )
 
+    if OPENAI_SECRET_KEY:
+        create_translations()
+        assert (
+                Translation.objects.filter(locale_id=Locale.DEFAULT_LOCALE_ID) .count()
+                == Translation.objects.filter(locale_id=Locale.ENGLISH_LOCALE_ID).count()
+                == Translation.objects.filter(locale_id=Locale.GERMAN_LOCALE_ID).count()
+        )
+
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('translations', '0001_initial'),
     ]

@@ -10,6 +10,10 @@ class Locale(models.Model):
     GERMAN_LOCALE_ID = 3
 
     DEFAULT_LOCALE_ID = POLISH_LOCALE_ID  # polish (:
+    FOREIGN_LOCALE_IDS = [
+        ENGLISH_LOCALE_ID,
+        GERMAN_LOCALE_ID
+    ]
 
     iso = models.CharField(null=False, blank=False, max_length=15)
     name = models.CharField(null=False, blank=False, max_length=63)
