@@ -14,7 +14,9 @@ token_refresh = TokenViewSet.as_view({
 })
 
 user = UserViewSet.as_view({
-    'get': 'retrieve'
+    'get': 'retrieve',
+    'patch': 'update',
+    'delete': 'delete'
 })
 
 user_statistics = UserStatisticsViewSet.as_view({

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
@@ -88,6 +89,52 @@ class UserViewSet(ViewSet):
             'lastGameModeCode': last_game_mode
         })
 
+    @exception_decorator()
+    def update(self, request: Request) -> Response:
+        user = request_user(request)
+        update_fields = []
+
+        if 'email' in request.data:
+            email = request.data.get('email')
+
+            if email != user.email:
+                if User.objects.filter(
+                        Q(email=email) | Q(username=email)
+                ).exists():
+                    raise UserAlreadyExists
+
+                user.email = email
+                user.username = email
+
+                update_fields += (
+                    'email',
+                    'username'
+                )
+
+        if 'password' in request.data:
+            password = request.data.get('password')
+
+            if not password:
+                raise ValueError
+
+            user.set_password(password)
+            update_fields.append(
+                'password'
+            )
+
+        if update_fields:
+            user.save(update_fields=update_fields)
+
+        return self.retrieve(request)
+
+    @exception_decorator()
+    def delete(self, request: Request) -> Response:
+        user = request_user(request)
+        user.is_active = False
+        user.save(update_fields=['is_active'])
+
+        return Response(True)
+
 
 class UserStatisticsViewSet(ViewSet):
     permission_classes = (IsAuthenticated, )
@@ -96,13 +143,12 @@ class UserStatisticsViewSet(ViewSet):
     @exception_decorator()
     def retrieve(request: Request) -> Response:
         user = request_user(request)
-
         user_games = user.usergame_set.all()
-        user_statistics = user.userstatistics if hasattr(user, 'userstatistics') else None
 
-        return Response({
-
-        })
+        return Response([
+            user_game.repr()
+            for user_game in user_games
+        ])
 
 
 class UserGamesHistoryViewSet(ViewSet):
