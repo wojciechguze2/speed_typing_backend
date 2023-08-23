@@ -13,9 +13,15 @@ class ExpectedTextsViewSet(ViewSet):
     @staticmethod
     @exception_decorator()
     def list(request: Request) -> Response:
+        locale_iso = request.query_params.get('locale_iso')
+        expected_texts = ExpectedText.objects.all()
+
+        if locale_iso:
+            expected_texts = expected_texts.filter(locale__iso=locale_iso)
+
         return Response([
             expected_text.repr()
-            for expected_text in ExpectedText.objects.all()
+            for expected_text in expected_texts
         ])
 
     @staticmethod
@@ -82,18 +88,3 @@ class ExpectedTextsViewSet(ViewSet):
             expected_text.save(update_fields=['active'])
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-
-    @staticmethod
-    @exception_decorator()
-    def random(request: Request) -> Response:
-        locale_iso = request.query_params.get('locale_iso')
-
-        if locale_iso:
-            expected_texts = ExpectedText.objects.filter(locale__iso=locale_iso)
-        else:
-            expected_texts = ExpectedText.objects.all()
-
-        if not expected_texts.exists():
-            raise ExpectedText.DoesNotExist
-
-        return Response(expected_texts.order_by('?').first().repr())
