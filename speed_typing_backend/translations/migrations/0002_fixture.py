@@ -1,7 +1,7 @@
 from django.db import migrations
 
 from speed_typing_backend.settings import OPENAI_SECRET_KEY
-from speed_typing_backend.translations.functions import create_translations
+from speed_typing_backend.openai_integration.integration import create_translations
 from speed_typing_backend.translations.models import TranslationBase
 
 
