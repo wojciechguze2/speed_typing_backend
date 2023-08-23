@@ -20,7 +20,6 @@ class SaveGameViewSet(ViewSet):
         try:
             user = request_user(request)
         except Exception as e:
-            print(type(e))
             user = None
 
         expected_text_id = request.data.get('expectedTextId')

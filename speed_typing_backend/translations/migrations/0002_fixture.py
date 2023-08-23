@@ -485,7 +485,7 @@ def add_fixture(apps, schema_editor):
         {
             'code': 'about.more_projects.before_link',
             'translations': [
-                single_translation_data(Locale.POLISH_LOCALE_ID, 'Więcej moich projektów będziesz mógł/mogła ujrzeć na moim.'),
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Więcej moich projektów będziesz mógł/mogła ujrzeć na moim '),
             ]
         },
         {

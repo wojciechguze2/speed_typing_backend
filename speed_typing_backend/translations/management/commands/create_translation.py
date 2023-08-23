@@ -14,7 +14,7 @@ class Command(BaseCommand, ABC):
         translations = []
 
         for locale in locales:
-            translation = input('%s: ' % locale.iso.upper()).strip()
+            translation = input('%s: ' % locale.iso.upper())
 
             translations.append({
                 'locale_id': locale.id,
