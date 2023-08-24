@@ -16,6 +16,17 @@ class TranslationBase(models.Model):
 
         return default_translations.first()
 
+    def repr_long(self):
+        return {
+            'id': self.id,
+            'code': self.code,
+            'autoTranslateEnabled': self.auto_translate_enabled,
+            'translations': [
+                translation.repr_long()
+                for translation in self.translation_set.order_by('locale_id')
+            ]
+        }
+
 
 class Translation(models.Model):
     base = models.ForeignKey(TranslationBase, null=False, blank=False, on_delete=models.CASCADE)

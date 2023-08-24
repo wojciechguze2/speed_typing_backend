@@ -1,0 +1,35 @@
+<div class="sidebar py-3 bg-dark h-100 d-flex" id="sidebar">
+    <h6 class="sidebar-heading">
+        Menu
+    </h6>
+    <ul class="list-unstyled">
+        <li class="sidebar-list-item">
+            <a class="sidebar-link text-muted" href="{% url 'cms_expected_texts' %}" role="button" aria-expanded="false">
+                <span class="pl-2 sidebar-link-title single">
+                    Teksty
+                </span>
+            </a>
+        </li>
+        <li class="sidebar-list-item">
+            <a class="sidebar-link text-muted" href="{% url 'cms_game_modes' %}" role="button" aria-expanded="false">
+                <span class="pl-2 sidebar-link-title single">
+                    Tryby gry
+                </span>
+            </a>
+        </li>
+        <li class="sidebar-list-item">
+            <a class="sidebar-link text-muted" href="{% url 'cms_static_pages' %}" role="button" aria-expanded="false">
+                <span class="pl-2 sidebar-link-title single">
+                    Strony statyczne
+                </span>
+            </a>
+        </li>
+        <li class="sidebar-list-item">
+            <a class="sidebar-link text-muted" href="{% url 'cms_translations' %}" role="button" aria-expanded="false">
+                <span class="pl-2 sidebar-link-title single">
+                    Tłumaczenia
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,49 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kod</th>
+                {% for languageCode in availableLangaugeCodes %}
+                    <th>{{ languageCode|upper }}</th>
+                {% endfor %}
+                <th>Automatyczne tłumaczenie</th>
+                <th>
+                    <a href="{% url 'cms_create_translation' %} ">
+                        Dodaj
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for translationBase in translationBases %}
+                <tr>
+                    <td>
+                        {{ translationBase.id }}
+                    </td>
+                    <td>
+                        {{ translationBase.code }}
+                    </td>
+                    {% for translation in translationBase.translations %}
+                        <td>
+                            {{ translation.translation }}
+                        </td>
+                    {% endfor %}
+                    <td>
+                        {{ translationBase.autoTranslateEnabled }}
+                    </td>
+                    <td>
+                        <a href="{% url 'cms_update_translation' translation_base_id=translationBase.id %}">
+                            Edytuj
+                        </a>
+                        <a href="{% url 'cms_delete_translation' translation_base_id=translationBase.id %}">
+                            Usuń
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

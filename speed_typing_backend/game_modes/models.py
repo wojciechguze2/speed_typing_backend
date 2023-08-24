@@ -41,6 +41,19 @@ class GameMode(models.Model):
             ]
         }
 
+    def repr_long(self):
+        return {
+            'id': self.id,
+            'code': self.code,
+            'textAssignment': self.text_assignment,
+            'multilanguage': self.multilanguage,
+            'active': self.active,
+            'typeCodes': [
+                game_mode_type_relation.game_mode_type.code
+                for game_mode_type_relation in self.gamemodegamemodetype_set.all()
+            ]
+        }
+
 
 class GameModeGameModeType(models.Model):
     game_mode = models.ForeignKey(GameMode, null=False, blank=False, on_delete=models.CASCADE)

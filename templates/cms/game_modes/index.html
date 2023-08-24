@@ -1,0 +1,36 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kod trybu gru</th>
+                <th>Przypisania tekstów</th>
+                <th>Wielojęzykowość</th>
+                <th>Aktywny</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gameMode in gameModes %}
+                <tr>
+                    <td>
+                        {{ gameMode.id }}
+                    </td>
+                    <td>
+                        {{ gameMode.code }}
+                    </td>
+                    <td>
+                        {{ gameMode.textAssignment }}
+                    </td>
+                    <td>
+                        {{ gameMode.multilanguage }}
+                    </td>
+                    <td>
+                        {{ gameMode.active }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

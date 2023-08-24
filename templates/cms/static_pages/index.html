@@ -1,0 +1,28 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ścieżka</th>
+                <th>Tytuł</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for static_page in static_pages %}
+                <tr>
+                    <td>
+                        {{ static_page.id }}
+                    </td>
+                    <td>
+                        {{ static_page.path }}
+                    </td>
+                    <td>
+                        {{ static_page.title }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

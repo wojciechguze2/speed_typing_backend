@@ -1,0 +1,26 @@
+{% extends 'cms/base.html' %}
+{% block content %}
+  <h2>Edytuj tłumaczenie </h2>
+
+  <form method="post">
+    {% csrf_token %}
+    <p>
+        Kod tłumaczenia: <span class="fw-bold">{{ translationBase.code }}</span>
+    </p>
+
+    {% for form in translationForms %}
+        <div class="col-lg-12 row m-3">
+            <div class="col-lg-4 text-right">
+                {{ form.instance.locale.iso|upper }}
+            </div>
+            <div class="col-lg-8">
+                {{ form.translation }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <button type="submit">
+        Zapisz
+    </button>
+  </form>
+{% endblock %}

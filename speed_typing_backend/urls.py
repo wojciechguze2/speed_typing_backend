@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/', include('speed_typing_backend.game_modes.urls')),
     path('api/', include('speed_typing_backend.game.urls')),
     path('api/', include('speed_typing_backend.translations.urls')),
+    path('cms/', include('cms.urls')),
 ]

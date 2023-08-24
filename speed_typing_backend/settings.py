@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'speed_typing_backend.game_modes',
     'speed_typing_backend.game',
     'speed_typing_backend.translations',
+    'cms',
     'rest_framework',
     'rest_framework_jwt'
 ]
@@ -82,7 +83,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'speed_typing_backend.urls'
 
-TEMPLATES = []
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+    },
+]
 
 WSGI_APPLICATION = 'speed_typing_backend.wsgi.application'
 
