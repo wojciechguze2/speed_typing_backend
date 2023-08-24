@@ -3,11 +3,11 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
-from speed_typing_backend.openai_integration.integration import create_expected_texts
+from speed_typing_backend.openai_integration.integration import OpenAI
 
 
 def generate_texts(apps, schema_editor):
-    create_expected_texts()
+    OpenAI().create_expected_texts()
 
 
 class Migration(migrations.Migration):

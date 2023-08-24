@@ -1,7 +1,7 @@
 from django.db import migrations
 
 from speed_typing_backend.settings import OPENAI_SECRET_KEY
-from speed_typing_backend.openai_integration.integration import create_translations
+from speed_typing_backend.openai_integration.integration import OpenAI
 from speed_typing_backend.translations.models import TranslationBase
 
 
@@ -576,7 +576,7 @@ def add_fixture(apps, schema_editor):
             )
 
     if OPENAI_SECRET_KEY:
-        create_translations()
+        OpenAI().create_translations()
         assert (
                 Translation.objects.filter(locale_id=Locale.DEFAULT_LOCALE_ID) .count()
                 == Translation.objects.filter(locale_id=Locale.ENGLISH_LOCALE_ID).count()
