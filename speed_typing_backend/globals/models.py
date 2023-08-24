@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Locale(models.Model):
@@ -38,12 +40,15 @@ class StaticPage(models.Model):
     path = models.CharField(null=False, blank=False, max_length=127)
     title = models.CharField(null=False, blank=False, max_length=127)
     content = models.TextField(null=False, blank=False, max_length=255)
+    locale = models.ForeignKey(Locale, null=False, blank=False, default=Locale.DEFAULT_LOCALE_ID,
+                               on_delete=models.CASCADE)
 
     def repr(self):
         return {
             'id': self.id,
             'path': self.path,
-            'title': self.title
+            'title': self.title,
+            'locale': self.locale.repr()
         }
 
     def repr_long(self):
@@ -51,5 +56,21 @@ class StaticPage(models.Model):
             'id': self.id,
             'path': self.path,
             'title': self.title,
-            'content': self.content
+            'content': self.content,
+            'locale': self.locale.repr()
         }
+
+
+@receiver(post_save, sender=StaticPage, dispatch_uid='clear_static_page_path')
+def clear_static_page_path(sender, instance: StaticPage, **kwargs):
+    if instance.path.startswith('/'):
+        instance.path = instance.path[1:]
+        instance.save(update_fields=['path'])
+
+
+class ContactMessage(models.Model):
+    firstname = models.CharField(null=True, blank=True, max_length=254)
+    lastname = models.CharField(null=True, blank=True, max_length=254)
+    email = models.EmailField(null=False, blank=False, max_length=254)
+    phone = models.CharField(null=True, blank=True, max_length=15)
+    message = models.CharField(null=True, blank=True, max_length=4095)

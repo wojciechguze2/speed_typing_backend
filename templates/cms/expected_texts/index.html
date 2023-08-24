@@ -5,11 +5,11 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Ścieżka</th>
-                <th>Tytuł</th>
+                <th>Tekst</th>
+                <th>Autor</th>
                 <th>Język</th>
                 <th>
-                    <a class="text-decoration-none" href="{% url 'cms_create_static_page' %} ">
+                    <a class="text-decoration-none" href="{% url 'cms_create_expected_text' %} ">
                         <button class="btn btn-success">
                             Dodaj
                         </button>
@@ -18,27 +18,31 @@
             </tr>
         </thead>
         <tbody>
-            {% for staticPage in staticPages %}
+            {% for expectedText in expectedTexts %}
                 <tr>
                     <td>
-                        {{ staticPage.id }}
+                        {{ expectedText.id }}
                     </td>
                     <td>
-                        {{ staticPage.path }}
+                        {{ expectedText.text }}
                     </td>
                     <td>
-                        {{ staticPage.title }}
+                        {% if expectedText.author %}
+                            {{ expectedText.author.name }}
+                        {% else %}
+                            -
+                        {% endif %}
                     </td>
                     <td>
-                        {{ staticPage.locale.iso|upper }}
+                        {{ expectedText.locale.iso }}
                     </td>
                     <td>
-                        <a class="text-decoration-none" href="{% url 'cms_update_static_page' static_page_id=staticPage.id %}">
+                        <a class="text-decoration-none" href="{% url 'cms_update_expected_text' expected_text_id=expectedText.id %}">
                             <button class="btn btn-primary">
                                 Edytuj
                             </button>
                         </a>
-                        <a class="text-decoration-none" href="{% url 'cms_delete_static_page' static_page_id=staticPage.id %}">
+                        <a class="text-decoration-none" href="{% url 'cms_delete_expected_text' expected_text_id=expectedText.id %}">
                             <button class="btn btn-danger">
                                 Usuń
                             </button>

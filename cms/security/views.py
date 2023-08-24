@@ -18,4 +18,4 @@ class LoginCmsViewSet(LoginView):
 
 
 class LogoutCmsViewSet(LogoutView):
-    ...
+    template_name = 'cms/security/logout.html'

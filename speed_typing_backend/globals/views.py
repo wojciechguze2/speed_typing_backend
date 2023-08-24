@@ -5,6 +5,7 @@ from rest_framework.viewsets import ViewSet
 
 from speed_typing_backend.game_modes.models import GameMode
 from speed_typing_backend.globals.decorators import exception_decorator
+from speed_typing_backend.globals.models import StaticPage, Locale, ContactMessage
 
 
 class GameModesDataViewSet(ViewSet):
@@ -34,3 +35,29 @@ class GameModesDataViewSet(ViewSet):
                 for game_mode in new_game_modes
             ]
         })
+
+
+class StaticPageViewSet(ViewSet):
+    @staticmethod
+    @exception_decorator()
+    def retrieve(request: Request, static_page_path: str):
+        locale_iso = request.query_params.get('locale_iso', Locale.AVAILABLE_LANGUAGE_CODES[0])
+
+        static_page = StaticPage.objects.get(path=static_page_path, locale__iso=locale_iso)
+
+        return Response(static_page.repr_long())
+
+
+class ContactViewSet(ViewSet):
+    @staticmethod
+    @exception_decorator()
+    def send(request: Request):
+        ContactMessage.objects.get_or_create(
+            firstname=request.data.get('firstname'),
+            lastname=request.data.get('lastname'),
+            email=request.data.get('email'),
+            phone=request.data.get('phone'),
+            message=request.data.get('message')
+        )
+
+        return Response(True)

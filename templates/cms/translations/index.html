@@ -11,8 +11,10 @@
                 {% endfor %}
                 <th>Automatyczne tłumaczenie</th>
                 <th>
-                    <a href="{% url 'cms_create_translation' %} ">
-                        Dodaj
+                    <a class="text-decoration-none" href="{% url 'cms_create_translation' %} ">
+                        <button class="btn btn-success">
+                            Dodaj
+                        </button>
                     </a>
                 </th>
             </tr>
@@ -35,11 +37,15 @@
                         {{ translationBase.autoTranslateEnabled }}
                     </td>
                     <td>
-                        <a href="{% url 'cms_update_translation' translation_base_id=translationBase.id %}">
-                            Edytuj
+                        <a class="text-decoration-none" href="{% url 'cms_update_translation' translation_base_id=translationBase.id %}">
+                            <button class="btn btn-primary">
+                                Edytuj
+                            </button>
                         </a>
-                        <a href="{% url 'cms_delete_translation' translation_base_id=translationBase.id %}">
-                            Usuń
+                        <a class="text-decoration-none" href="{% url 'cms_delete_translation' translation_base_id=translationBase.id %}">
+                            <button class="btn btn-danger">
+                                Usuń
+                            </button>
                         </a>
                     </td>
                 </tr>
