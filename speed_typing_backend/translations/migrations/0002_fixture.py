@@ -473,7 +473,7 @@ def add_fixture(apps, schema_editor):
         {
             'code': 'about.execution_time',
             'translations': [
-                single_translation_data(Locale.POLISH_LOCALE_ID, 'Cały proces tworzenia zajął mi około 3 dni.'),
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Cały proces tworzenia zajął mi około tygodnia.'),
             ]
         },
         {
@@ -552,6 +552,114 @@ def add_fixture(apps, schema_editor):
             'code': 'account.statistics.favourite_game_mode',
             'translations': [
                 single_translation_data(Locale.POLISH_LOCALE_ID, 'Ulubiony tryb gry'),
+            ]
+        },
+        {
+            'code': 'alert.load_data_error.title',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Błąd'),
+            ]
+        },
+        {
+            'code': 'alert.load_data_error.message',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Wystąpił błąd przy pobieraniu danych. Proszę o kontakt.'),
+            ]
+        },
+        {
+            'code': 'alert.save_game_success.title',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Zapis'),
+            ]
+        },
+        {
+            'code': 'alert.save_game_success.message',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Zapisano grę w historii'),
+            ]
+        },
+        {
+            'code': 'alert.save_game.not_authenticated.title',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Nie zapisano gry'),
+            ]
+        },
+        {
+            'code': 'alert.save_game.not_authenticated.message',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Zaloguj się aby gry były zapisywanie do historii'),
+            ]
+        },
+        {
+            'code': 'alert.email_validation_error.title',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Niepoprawny adres E-mail'),
+            ]
+        },
+        {
+            'code': 'alert.success.message',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Wykonano operację pomyślnie'),
+            ]
+        },
+        {
+            'code': 'messages.login_error',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Nie znaleziono użytkownika.'),
+            ]
+        },
+        {
+            'code': 'messages.user_inactive',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Użytkownik jest nieaktywny.'),
+            ]
+        },
+        {
+            'code': 'register.error_message',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Wystąpiły błędy przy tworzeniu konta. Prosimy o kontakt.'),
+            ]
+        },
+        {
+            'code': 'messages.user_already_exists',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Podany użytkownik już istnieje.'),
+            ]
+        },
+        {
+            'code': 'game_mode.long-text',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Długi tekst'),
+            ]
+        },
+        {
+            'code': 'game_mode.time-limit',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Limit czasu'),
+            ]
+        },
+        {
+            'code': 'game_mode.by-one-letter',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Po jednej literze'),
+            ]
+        },
+        {
+            'code': 'game_mode.by-one-word',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Po jednym wyrazie'),
+            ]
+        },
+        {
+            'code': 'game_mode.multilanguage',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Wiele języków'),
+            ]
+        },
+        {
+            'code': 'game_mode.random',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Losowy tryb gry'),
             ]
         },
     ]
