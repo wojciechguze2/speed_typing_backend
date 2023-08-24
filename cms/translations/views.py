@@ -45,7 +45,10 @@ class TranslationsCmsViewSet(BaseCmsViewSet):
                 for locale_id in Locale.AVAILABLE_LANGUAGE_IDS
             ]
 
-            if all(translation_form.is_valid() for translation_form in translation_forms) and translation_base_form.is_valid():
+            if (
+                    all(translation_form.is_valid() for translation_form in translation_forms)
+                    and translation_base_form.is_valid()
+            ):
                 translation_base: TranslationBase = translation_base_form.save()
 
                 for translation_form in translation_forms:
