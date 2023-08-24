@@ -88,7 +88,7 @@ class GameExpectedTextViewSet(ViewSet):
             )
 
         return Response({
-            'gameModeCode': game_mode.code,
+            'gameMode': game_mode.repr(),
             'expectedText': expected_texts.order_by('?').first().repr(),
             'timeLimitSeconds': time_limit_seconds
         })

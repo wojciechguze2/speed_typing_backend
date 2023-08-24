@@ -11,7 +11,7 @@ class GameModesDataViewSet(ViewSet):
     @staticmethod
     @exception_decorator()
     def retrieve(request: Request):
-        global_max_game_modes = int(request.query_params.get('global_max_game_modes', 3))
+        global_max_game_modes = int(request.query_params.get('global_max_game_modes', 5))
         active_game_modes = GameMode.objects.filter(
             active=True,
         )

@@ -24,3 +24,9 @@ class Locale(models.Model):
             'iso': self.iso,
             'name': self.name
         }
+
+
+class StaticPage(models.Model):
+    path = models.CharField(null=False, blank=False, max_length=127)
+    title = models.CharField(null=False, blank=False, max_length=127)
+    content = models.TextField(null=False, blank=False, max_length=255)

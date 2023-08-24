@@ -9,6 +9,12 @@ class GameModeType(models.Model):
 
     code = models.CharField(max_length=31, null=False, blank=False)
 
+    def repr(self):
+        return {
+            'id': self.id,
+            'code': self.code,
+        }
+
 
 class GameMode(models.Model):
     GAME_MODE_FAST_GAME_CODE = 'fast-game'
@@ -28,7 +34,11 @@ class GameMode(models.Model):
     def repr(self):
         return {
             'id': self.id,
-            'code': self.code
+            'code': self.code,
+            'typeCodes': [
+                game_mode_type_relation.game_mode_type.code
+                for game_mode_type_relation in self.gamemodegamemodetype_set.all()
+            ]
         }
 
 
