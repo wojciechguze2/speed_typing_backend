@@ -6,7 +6,8 @@ from speed_typing_backend.game_modes.models import GameMode
 
 
 def create_fast_game_mode(apps, schema_editor):
-    GameMode.objects.get_or_create(code='fast-game')
+    game_mode_model = apps.get_model('game_modes', 'GameMode')
+    game_mode_model.objects.get_or_create(code='fast-game')
 
 
 class Migration(migrations.Migration):
