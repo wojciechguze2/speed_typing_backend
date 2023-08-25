@@ -1,6 +1,6 @@
 from django.db import migrations
 
-from speed_typing_backend.game_modes.models import GameMode, GameModeDefaultTimeLimits, GameModeType, \
+from speed_typing_backend.game_modes.models import GameModeDefaultTimeLimits, GameModeType, \
     GameModeGameModeType
 from speed_typing_backend.globals.models import Locale
 from speed_typing_backend.translations.models import Translation, TranslationBase
@@ -11,6 +11,8 @@ def get_translation_code(game_mode_code: str):
 
 
 def add_fixture(apps, schema_editor):
+    GameMode = apps.get_model('game_modes', 'GameMode')
+
     game_modes = [
         {
             'code': GameMode.GAME_MODE_LONG_TEXT_CODE,
