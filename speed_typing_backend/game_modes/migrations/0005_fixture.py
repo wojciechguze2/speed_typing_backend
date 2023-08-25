@@ -165,6 +165,7 @@ def add_fixture(apps, schema_editor):
 class Migration(migrations.Migration):
     dependencies = [
         ('game_modes', '0004_gamemode_multilanguage_and_more'),
+        ('translations', '0002_fixture'),
     ]
 
     operations = [
