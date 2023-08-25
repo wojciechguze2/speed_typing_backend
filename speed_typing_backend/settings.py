@@ -188,7 +188,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8080',
     'https://typingspeedtest.ovh:8004',
     'http://typingspeedtest.ovh:8004',
-    '217.182.75.230:8004'
+    'http://217.182.75.230:8004',
+    'https://217.182.75.230:8004'
 ]
 
 USERS_LIMIT = os.getenv('USERS_LIMIT', 250)
