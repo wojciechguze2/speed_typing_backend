@@ -46,7 +46,10 @@ SENTRY_DSN = os.getenv('SENTRY_DSN', None)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'typingspeedtest.ovh',
+    '217.182.75.230'
+]
 
 
 # Application definition
