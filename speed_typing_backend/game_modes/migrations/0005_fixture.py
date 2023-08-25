@@ -127,8 +127,8 @@ def add_fixture(apps, schema_editor):
 
     fast_game_mode = GameMode.objects.get(code=GameModeConstants.GAME_MODE_FAST_GAME_CODE)
     GameModeGameModeType.objects.get_or_create(
-        game_mode=fast_game_mode,
-        game_mode_type=GameModeType.objects.get(code=GameModeType.GAME_MODE_TYPE_TEXT_LENGTH)
+        game_mode_id=fast_game_mode.id,
+        game_mode_type_id=GameModeType.objects.get(code=GameModeType.GAME_MODE_TYPE_TEXT_LENGTH).id
     )
 
     game_mode_code = GameModeConstants.GAME_MODE_RANDOM
