@@ -713,7 +713,7 @@ def add_fixture(apps, schema_editor):
 class Migration(migrations.Migration):
     dependencies = [
         ('translations', '0001_initial'),
-        ('globals', '0002_fixture'),
+        ('globals', '0002_fixtures'),
     ]
 
     operations = [
