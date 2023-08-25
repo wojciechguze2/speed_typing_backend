@@ -31,21 +31,21 @@ class UserStatistics:
         if not self.has_games:
             return None
 
-        return self.user.game_set.order_by('-create_date').first().cpm
+        return round(float(self.user.game_set.order_by('-create_date').first().cpm), 2)
 
     @property
     def average_cpm(self):
         if not self.has_games:
             return None
 
-        return self.user.game_set.aggregate(Avg('cpm'))['cpm__avg']
+        return round(float(self.user.game_set.aggregate(Avg('cpm'))['cpm__avg']), 2)
 
     @property
     def best_cpm(self):
         if not self.has_games:
             return None
 
-        return self.user.game_set.order_by('-cpm').first().cpm
+        return round(float(self.user.game_set.order_by('-cpm').first().cpm), 2)
 
     @property
     def games_played_count(self):

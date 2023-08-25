@@ -662,6 +662,24 @@ def add_fixture(apps, schema_editor):
                 single_translation_data(Locale.POLISH_LOCALE_ID, 'Losowy tryb gry'),
             ]
         },
+        {
+            'code': 'game.remain_time',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Pozostały czas'),
+            ]
+        },
+        {
+            'code': 'game.time_limit',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Limit czasu'),
+            ]
+        },
+        {
+            'code': 'messages.remind_password',
+            'translations': [
+                single_translation_data(Locale.POLISH_LOCALE_ID, 'Przypomnij hasło'),
+            ]
+        },
     ]
 
     for translation_data in init_translations_data:
