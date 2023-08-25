@@ -186,6 +186,9 @@ if SENTRY_DSN:
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
     'http://127.0.0.1:8080',
+    'https://typingspeedtest.ovh:8004',
+    'http://typingspeedtest.ovh:8004',
+    '217.182.75.230:8004'
 ]
 
 USERS_LIMIT = os.getenv('USERS_LIMIT', 250)
