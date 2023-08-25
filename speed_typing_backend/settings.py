@@ -186,19 +186,9 @@ if SENTRY_DSN:
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
     'http://127.0.0.1:8080',
-    'https://typingspeedtest.ovh:8004',
     'http://typingspeedtest.ovh:8004',
     'http://217.182.75.230:8004',
-    'https://217.182.75.230:8004'
 ]
 
 USERS_LIMIT = os.getenv('USERS_LIMIT', 250)
 
-USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('X-FORWARDED-PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
