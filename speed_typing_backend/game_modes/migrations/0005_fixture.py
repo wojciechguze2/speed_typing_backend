@@ -81,7 +81,10 @@ def add_fixture(apps, schema_editor):
                         code=game_mode_type_code
                     )
 
-                GameModeGameModeType.objects.get_or_create(game_mode=game_mode, game_mode_type=game_mode_type)
+                GameModeGameModeType.objects.get_or_create(
+                    game_mode_id=game_mode.id,
+                    game_mode_type_id=game_mode_type.id
+                )
 
         if game_mode_code == GameModeConstants.GAME_MODE_TIME_LIMIT_CODE:
             GameModeDefaultTimeLimits.objects.get_or_create(
