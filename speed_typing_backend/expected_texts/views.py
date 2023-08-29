@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
 from speed_typing_backend.authors.models import Author
+from speed_typing_backend.constants import DEFAULT_PAGINATION_LIMIT
 from speed_typing_backend.expected_texts.exceptions import ExpectedTextAlreadyExists
 from speed_typing_backend.expected_texts.models import ExpectedText
 from speed_typing_backend.globals.decorators import exception_decorator
@@ -14,15 +15,24 @@ class ExpectedTextsViewSet(ViewSet):
     @exception_decorator()
     def list(request: Request) -> Response:
         locale_iso = request.query_params.get('locale_iso')
+        offset = int(request.query_params.get('offset', 0))
+        limit = int(request.query_params.get('limit', DEFAULT_PAGINATION_LIMIT))
+
         expected_texts = ExpectedText.objects.all()
 
         if locale_iso:
             expected_texts = expected_texts.filter(locale__iso=locale_iso)
 
-        return Response([
-            expected_text.repr()
-            for expected_text in expected_texts
-        ])
+        count = expected_texts.count()
+        expected_texts = expected_texts[offset: offset + limit]
+
+        return Response({
+            'expectedTexts': [
+                expected_text.repr()
+                for expected_text in expected_texts
+            ],
+            'count': count
+        })
 
     @staticmethod
     @exception_decorator()
