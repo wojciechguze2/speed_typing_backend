@@ -1,1 +1,4 @@
 DEFAULT_PAGINATION_LIMIT = 10
+DEFAULT_EMAIL_RECIPIENT_LIST = [
+    'wojciechguze2@gmail.com'
+]

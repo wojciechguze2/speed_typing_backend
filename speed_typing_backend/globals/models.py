@@ -74,3 +74,20 @@ class ContactMessage(models.Model):
     email = models.EmailField(null=False, blank=False, max_length=254)
     phone = models.CharField(null=True, blank=True, max_length=15)
     message = models.CharField(null=True, blank=True, max_length=4095)
+
+    def __str__(self):
+        return (
+            f'Firstname: {self.firstname} \n'
+            f'Lastname: {self.lastname} \n'
+            f'E-mail: {self.email} \n'
+            f'Phone number: {self.phone} \n'
+            f'Message: {self.message}'
+        )
+
+
+@receiver(post_save, sender=ContactMessage, dispatch_uid='send_contact_message')
+def send_contact_message(sender, instance: ContactMessage, created: bool, **kwargs):
+    from speed_typing_backend.globals.functions import send_contact_email
+
+    if created:
+        send_contact_email(instance)

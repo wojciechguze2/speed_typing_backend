@@ -34,14 +34,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # here put used env variables
+# db
 DB_NAME = os.getenv('DB_NAME')
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_HOST = os.getenv('DB_HOST')
 DB_PORT = os.getenv('DB_PORT')
+# email
+EMAIL_ENABLED = os.getenv('EMAIL_ENABLED', False)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', True)
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+# other
 OPENAI_SECRET_KEY = os.getenv('OPENAI_SECRET_KEY', None)
 SENTRY_DSN = os.getenv('SENTRY_DSN', None)
-
+USERS_LIMIT = os.getenv('USERS_LIMIT', 250)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -51,6 +61,12 @@ ALLOWED_HOSTS = [
     '217.182.75.230'
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+    'http://typingspeedtest.ovh:8004',
+    'http://217.182.75.230:8004',
+]
 
 # Application definition
 
@@ -95,7 +111,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'speed_typing_backend.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -148,7 +163,6 @@ REST_FRAMEWORK = {
     )
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -159,7 +173,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -182,13 +195,4 @@ if SENTRY_DSN:
         traces_sample_rate=1.0,
         send_default_pii=True
     )
-
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
-    'http://127.0.0.1:8080',
-    'http://typingspeedtest.ovh:8004',
-    'http://217.182.75.230:8004',
-]
-
-USERS_LIMIT = os.getenv('USERS_LIMIT', 250)
 
