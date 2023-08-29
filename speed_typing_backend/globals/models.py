@@ -39,7 +39,7 @@ class Locale(models.Model):
 class StaticPage(models.Model):
     path = models.CharField(null=False, blank=False, max_length=127)
     title = models.CharField(null=False, blank=False, max_length=127)
-    content = models.TextField(null=False, blank=False, max_length=255)
+    content = models.TextField(null=False, blank=False, max_length=8191)
     locale = models.ForeignKey(Locale, null=False, blank=False, default=Locale.DEFAULT_LOCALE_ID,
                                on_delete=models.CASCADE)
 
