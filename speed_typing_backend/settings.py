@@ -171,7 +171,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-FRONTEND_DOMAIN = 'https://typing-speed-test.ovh'
+FRONTEND_DOMAIN = 'https://typingspeedtest.ovh'
 
 if SENTRY_DSN:
     sentry_sdk.init(

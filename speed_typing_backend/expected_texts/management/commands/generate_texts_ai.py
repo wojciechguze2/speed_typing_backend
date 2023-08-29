@@ -10,12 +10,20 @@ class Command(BaseCommand, ABC):
         try:
             count = int(input('Count (default: 2): '))
         except Exception as e:
-            count = int(2)
+            count = 2
 
         if not count:
-            count = int(2)
+            count = 2
 
-        if count > 50:
+        try:
+            max_chars = int(input('Max chars: (default: 127): '))
+        except Exception as e:
+            max_chars = 127
+
+        if not max_chars:
+            max_chars = 127
+
+        if count > 50 or max_chars > 255:
             raise ResourceWarning
 
-        OpenAI().create_expected_texts(count)
+        OpenAI().create_expected_texts(count, max_chars)

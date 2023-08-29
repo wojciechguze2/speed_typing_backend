@@ -1,4 +1,5 @@
 # import random
+import random
 
 import openai
 from django.db import transaction
@@ -147,7 +148,7 @@ class OpenAI:
                         original_text=text_to_translate
                 )
 
-    def create_expected_texts(self, count=2):
+    def create_expected_texts(self, count: int = 2, max_chars: int = 254):
         topics = [
             'literatura',
             'sztuka',
@@ -171,6 +172,8 @@ class OpenAI:
             'zdrowy tryb życia',
             None
         ]
+        random.shuffle(topics)
+
         # authors = Author.objects.all()
         author = None
         topic_index = 0
@@ -182,7 +185,7 @@ class OpenAI:
 
             topic = topics[topic_index]
 
-            text = self.__get_opensource_text(None, topic)
+            text = self.__get_opensource_text(None, topic, max_chars)
 
             if not text:
                 continue
