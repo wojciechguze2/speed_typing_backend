@@ -81,7 +81,7 @@ class UserViewSet(ViewSet):
         if user_games.exists():
             last_game_mode = user_games.order_by('-create_date').first().game_mode.code
         else:
-            last_game_mode = '-'
+            last_game_mode = None
 
         return Response({
             'email': user.email,
