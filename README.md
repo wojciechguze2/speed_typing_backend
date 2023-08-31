@@ -2,7 +2,7 @@
 
 ## Typing speed test - backend
 
-Backend strony został napisany w języku [Python3](https://www.python.org/) z wykorzystaniem m.in. Frameworka [Django](https://www.djangoproject.com/) oraz bazy danych [PostgreSQL](https://www.postgresql.org/),
+Backend strony został napisany w języku [Python3](https://www.python.org/) z wykorzystaniem m.in. Frameworka [Django](https://www.djangoproject.com/) oraz bazy danych [PostgreSQL](https://www.postgresql.org/).
 
 CMS nie został dokończony - brakuje m.in. stylowania templatek, edycji niektórych rzeczy.
 
