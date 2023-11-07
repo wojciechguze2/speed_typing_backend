@@ -8,8 +8,6 @@ CMS nie został dokończony - brakuje m.in. stylowania templatek, edycji niektó
 
 Na dzień dzisiejszy (01.09.2023) nie planuję, przynajmniej w najbliższej przyszłości, rozwijać tego projektu. Ewentualnie jeśli znajdę czas to dokończę CMS.
 
-Strona jest dostępna pod adresem [typingspeedtest.ovh](https://typingspeedtest.ovh/)
-
 Frontend: [speed_typing](https://github.com/wojciechguze2/speed_typing)
 
 ### Development
